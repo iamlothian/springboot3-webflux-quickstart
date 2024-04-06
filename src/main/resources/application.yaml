@@ -1,0 +1,47 @@
+
+server:
+  http2.enabled: true
+  port: 9000
+  error:
+    include-stacktrace: never
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  r2dbc:
+    url: r2dbc:postgres://localhost:32768/rtbi
+    username: rtbi
+    password: rtbipw
+    pool:
+      max-create-connection-time: 2s
+      initial-size: 5
+      max-size: 10
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: rtbi
+            client-secret: ky6qU2lR6Y8xFnqMFclLcSZgFvsG31pN
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/RTBI
+            user-name-attribute: preferred_username
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+#        r2dbc: TRACE
+
+# postgres://postgres:postgrespw@localhost:32768
